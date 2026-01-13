@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shamir"
+version = "0.1.0"
+description = "Reference-grade implementation of Shamir Secret Sharing"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Andrzej Dobrucki" }
+]
+requires-python = ">=3.8"
+
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Security :: Cryptography",
+    "Intended Audience :: Developers",
+]
+
+[project.urls]
+Repository = "https://github.com/krunixbase/shamir"
