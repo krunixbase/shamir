@@ -80,25 +80,55 @@ Exit code 0 → valid and threshold satisfied
 
 Exit code 1 → any critical error
 
-JSON Output Example
-json
-{
-  "ValidSharesCount": 3,
-  "InvalidSharesCount": 1,
-  "ThresholdSatisfied": false,
-  "Errors": [
-    {
-      "Code": "ERR_DUPLICATE_SHARE_ID",
-      "Message": "Duplicate share ID detected",
-      "Context": { "ID": 2 }
-    }
-  ],
-  "Warnings": []
-}
+## Dual Implementation Philosophy: Python & Go
+This repository intentionally contains two parallel implementations of Shamir Secret Sharing, each serving a distinct purpose:
 
+### Python — Protocol Reference
+The Python module (shamir/) provides a full implementation of the Shamir Secret Sharing protocol:
 
+- Splitting and reconstructing secrets
 
+- Encoding and decoding shares
 
+- Exception-safe API for integration
+
+- Designed for clarity, correctness, and educational use
+
+Python defines how the protocol works.
+
+### Go — Defensive Verification (TOR A)
+The Go modules (core/, math/, verify/, cli/) focus on verifying externally supplied shares:
+
+- Modular validation of share structure and consistency
+
+- Deterministic error reporting with stable codes
+
+- Audit-grade VerificationReport for CI and forensic use
+
+- CLI with human-readable and JSON output modes
+
+Go defines how to defend against invalid or malicious input.
+
+### Why Both?
+Python expresses the cryptographic protocol clearly.
+
+Go enforces structural discipline and auditability.
+
+- Both follow the same principles:
+
+- separation of concerns,
+
+- deterministic behavior,
+
+- explicit failure semantics.
+
+Together, they form a system that is:
+
+- understandable,
+
+- verifiable,
+
+- and resistant to misuse.
 
 
 ## Project Structure
@@ -138,47 +168,5 @@ shamir/
 └── .gitignore      # Git ignore rules
 
 ```
-## 🧠 Dual Implementation Philosophy: Python & Go
-
-This repository includes two parallel implementations of Shamir Secret Sharing, each serving a distinct purpose:
-
-🐍 Python — Protocol Reference
-The Python module (shamir/) provides a full implementation of the Shamir Secret Sharing protocol:
-
-- Splitting and reconstructing secrets
-
-- Encoding and decoding shares
-
-- Exception-safe API for integration
-
-- Designed for clarity, correctness, and educational use
-
-- Python defines how the protocol works.
-
-🦫 Go — Defensive Verification (TOR A)
-The Go modules (core/, math/, verify/, cli/) focus on verifying externally supplied shares:
-
-- Modular validation of share structure and consistency
-
-- Deterministic error reporting with stable codes
-
-- Audit-grade VerificationReport for CI and forensic use
-
-- CLI with human-readable and JSON output modes
-
-- Go defines how to defend against invalid or malicious input.
-
-## Usage Example
-
-```python
-from shamir.core import split_secret, reconstruct_secret
-from shamir.encoding import encode_shares, decode_shares
-
-secret = 123456789
-shares = split_secret(secret, threshold=3, shares_count=5)
-
-encoded = encode_shares(shares)
-decoded = decode_shares(encoded)
-
-recovered = reconstruct_secret(decoded[:3])
-assert recovered == secret
+## License
+This project is licensed under the MIT License. See LICENSE for details.
