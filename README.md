@@ -36,14 +36,39 @@ The project focuses on:
 ## Project Structure
 
 ```
+
 shamir/
-├── shamir/
-│   ├── core.py         # Shamir Secret Sharing logic
-│   ├── encoding.py     # Share serialization utilities
-│   └── exceptions.py   # Explicit error definitions
-├── tests/
-│   └── test_shamir.py
-└── README.md
+├── cli/            # Command-line interface adapters
+│   ├── verify.go   # Verify command entry point
+│   
+├── core/           # Core Shamir Secret Sharing logic
+│   ├── share.go    # Share structure definition
+│   ├── polynomial.go # Polynomial operations
+│   └── params.go   # Scheme parameters
+│
+├── math/           # Mathematical primitives
+│   ├── field.go    # Abstract field interface
+│   └── interpolate.go # Polynomial interpolation (Lagrange)
+│
+├── verify/         # Defensive share verification (TOR A)
+│   ├── verify.go   # Verification orchestrator
+│   ├── checks.go   # Modular validation checks
+│   ├── report.go   # VerificationReport definition
+│   └── errors.go   # Structured verification errors
+│
+├── tests/          # Integration tests
+│   └── verify_test.go # VerifyShares integration tests
+│
+├── shamir/         # Python reference implementation
+│   ├── core.py     # Shamir Secret Sharing logic
+│   ├── encoding.py # Share serialization utilities
+│   └── exceptions.py # Explicit exception hierarchy
+│
+├── README.md       # Project documentation
+├── LICENSE         # MIT license
+├── SECURITY.md     # Security policy
+└── .gitignore      # Git ignore rules
+
 ```
 
 ## Usage Example
