@@ -13,7 +13,7 @@ The project focuses on:
 ✅ Deterministic behavior suitable for audits and integrations
 
 ## 🚀 Features
-# Python
+## Python
 Pure Python implementation of Shamir Secret Sharing
 
 Configurable threshold and share count
@@ -24,7 +24,7 @@ Explicit exception hierarchy for safe integration
 
 Deterministic and auditable unit tests
 
-# Go
+## Go
 Modular share verification with audit-grade reporting
 
 Deterministic error codes and structured context
@@ -44,6 +44,62 @@ All error conditions are represented by structured exceptions or error objects.
 
 Audit-first structure  
 Code is written to be readable, reviewable, and defensible — suitable for compliance and forensic use.
+
+
+## Python Usage Example
+python
+from shamir.core import split_secret, reconstruct_secret
+from shamir.encoding import encode_shares, decode_shares
+
+secret = 123456789
+shares = split_secret(secret, threshold=3, shares_count=5)
+
+encoded = encode_shares(shares)
+decoded = decode_shares(encoded)
+
+recovered = reconstruct_secret(decoded[:3])
+assert recovered == secret
+
+## Go Module: Audit-Grade Share Verification (TOR A)
+This repository also includes a reference-grade Go module for deterministic share verification, designed to audit Shamir Secret Sharing inputs before reconstruction.
+
+Go API
+go
+report := verify.VerifyShares(shares, threshold)
+Always returns a VerificationReport
+
+Never panics, never reconstructs
+
+Can be serialized to JSON for CI integration
+
+CLI
+bash
+shamir verify shares.json --threshold 3
+shamir verify shares.json --threshold 3 --json
+Exit code 0 → valid and threshold satisfied
+
+Exit code 1 → any critical error
+
+JSON Output Example
+json
+{
+  "ValidSharesCount": 3,
+  "InvalidSharesCount": 1,
+  "ThresholdSatisfied": false,
+  "Errors": [
+    {
+      "Code": "ERR_DUPLICATE_SHARE_ID",
+      "Message": "Duplicate share ID detected",
+      "Context": { "ID": 2 }
+    }
+  ],
+  "Warnings": []
+}
+
+
+
+
+
 
 ## Project Structure
 
