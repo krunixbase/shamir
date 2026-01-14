@@ -23,3 +23,9 @@ func RunVerify(shares []core.Share, threshold int) int {
     return 1
 }
 
+func renderJSON(report verify.VerificationReport) int {
+    // ...
+}
+if jsonOutput {
+    return renderJSON(report)
+}
