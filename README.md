@@ -1,37 +1,49 @@
-# shamir
+shamir
+Reference-grade implementation of Shamir Secret Sharing with modular encoding and audit-ready structure.
 
-Reference-grade implementation of Shamir Secret Sharing with modular encoding
-and audit-ready structure.
-
-## Overview
-
-This repository provides a clean, dependency-free implementation of
-Shamir Secret Sharing (SSS), designed for correctness, clarity, and
-long-term maintainability.
+## 🧭 Overview
+This repository provides clean, dependency-free implementations of Shamir Secret Sharing (SSS) in both Python and Go, designed for correctness, clarity, and long-term maintainability.
 
 The project focuses on:
-- explicit mathematical correctness,
-- clear separation of responsibilities,
-- deterministic behavior suitable for audits and integrations.
 
-## Features
+✅ Explicit mathematical correctness
 
-- Pure Python implementation of Shamir Secret Sharing
-- Configurable threshold and share count
-- URL-safe Base64 encoding for share transport
-- Explicit exception hierarchy for safe integration
-- Deterministic and auditable unit tests
+✅ Clear separation of responsibilities
 
-## Design Principles
+✅ Deterministic behavior suitable for audits and integrations
 
-- **Separation of concerns**  
-  Core cryptographic logic is isolated from encoding and I/O layers.
+## 🚀 Features
+# Python
+Pure Python implementation of Shamir Secret Sharing
 
-- **Explicit failure semantics**  
-  All error conditions are represented by dedicated exception classes.
+Configurable threshold and share count
 
-- **Audit-first structure**  
-  Code is written to be readable, reviewable, and defensible.
+URL-safe Base64 encoding for share transport
+
+Explicit exception hierarchy for safe integration
+
+Deterministic and auditable unit tests
+
+# Go
+Modular share verification with audit-grade reporting
+
+Deterministic error codes and structured context
+
+CLI integration with human-readable and JSON output
+
+No reconstruction logic — pure defensiveness
+
+Integration-ready for CI and automated pipelines
+
+## 🧠 Design Principles
+Separation of concerns  
+Cryptographic logic is isolated from encoding, I/O, and validation layers.
+
+Explicit failure semantics  
+All error conditions are represented by structured exceptions or error objects.
+
+Audit-first structure  
+Code is written to be readable, reviewable, and defensible — suitable for compliance and forensic use.
 
 ## Project Structure
 
