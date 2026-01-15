@@ -156,8 +156,17 @@ shamir/
 │
 ├── tests/             # Integration tests
 │   ├── test_shamir.py
-│   └── verify_test.go # VerifyShares integration tests
-│
+│   ├── verify_test.go # VerifyShares integration tests
+│   ├── test_split.py
+│   ├── test_combine.py
+│   ├── test_encoding.py
+│   ├── test_cli.py        # CLI happy-path + error cases
+│   └── vectors/
+│       ├── README.md
+│       ├── split_k2_n3.json
+│       ├── split_k3_n5.json
+│       └── encoding_v1.json
+││
 ├── shamir/         # Python reference implementation
 │   ├── core.py     # Shamir Secret Sharing logic
 │   ├── encoding.py # Share serialization utilities
