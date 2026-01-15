@@ -1,0 +1,27 @@
+from enum import Enum
+
+
+class OperationError(Enum):
+    """
+    Canonical error codes for Shamir operational procedures.
+
+    Errors are deterministic, stable, and intended for audit-grade
+    reporting rather than exception-based control flow.
+    """
+
+    INVALID_THRESHOLD = "INVALID_THRESHOLD"
+    INVALID_TOTAL_SHARES = "INVALID_TOTAL_SHARES"
+    THRESHOLD_EXCEEDS_TOTAL_SHARES = "THRESHOLD_EXCEEDS_TOTAL_SHARES"
+
+    MISSING_SESSION_ID = "MISSING_SESSION_ID"
+    MISSING_ALGORITHM_VERSION = "MISSING_ALGORITHM_VERSION"
+
+    DRY_RUN_ACTIVE = "DRY_RUN_ACTIVE"
+
+    INSUFFICIENT_SHARES = "INSUFFICIENT_SHARES"
+    DUPLICATE_SHARE = "DUPLICATE_SHARE"
+    CORRUPTED_INPUT = "CORRUPTED_INPUT"
+    SHARE_CONTEXT_MISMATCH = "SHARE_CONTEXT_MISMATCH"
+
+    SPLIT_FAILED = "SPLIT_FAILED"
+    RECONSTRUCTION_FAILED = "RECONSTRUCTION_FAILED"
