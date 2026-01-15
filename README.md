@@ -154,7 +154,8 @@ shamir/
 │   ├── report.go   # VerificationReport definition
 │   └── errors.go   # Structured verification errors
 │
-├── tests/          # Integration tests
+├── tests/             # Integration tests
+│   ├── test_shamir.py
 │   └── verify_test.go # VerifyShares integration tests
 │
 ├── shamir/         # Python reference implementation
