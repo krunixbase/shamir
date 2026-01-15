@@ -160,8 +160,10 @@ shamir/
 ├── shamir/         # Python reference implementation
 │   ├── core.py     # Shamir Secret Sharing logic
 │   ├── encoding.py # Share serialization utilities
-│   └── exceptions.py # Explicit exception hierarchy
-│
+│   └── exceptions.py # Explicit exception hierarchy├─ THREAT_MODEL.md
+├── THREAT_MODEL.md
+├── PR_JUSTIFICATION.md
+├── DESIGN_DECISIONS.md
 ├── README.md       # Project documentation
 ├── LICENSE         # MIT license
 ├── SECURITY.md     # Security policy
@@ -170,3 +172,8 @@ shamir/
 ```
 ## License
 This project is licensed under the MIT License. See LICENSE for details.
+
+## Audit & Security
+See SECURITY.md, THREAT_MODEL.md and PR_JUSTIFICATION.md
+for design rationale and threat assumptions.
+
