@@ -6,6 +6,7 @@ This repository provides a reference‑grade implementation of Shamir’s Secret
 The implementation separates cryptographic logic from operational control.
 All secret sharing procedures are executed through an explicit lifecycle
 consisting of initialization, split, verification, and reconstruction stages.
+The operational lifecycle constitutes a formal procedural contract and is documented in docs/operational_flow.md.
 
 Operational behavior is deterministic, auditable, and free of hidden state.
 
