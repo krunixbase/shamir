@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "description": "Reference vector for Shamir split with threshold=2 and shares=3",
+  "parameters": {
+    "threshold": 2,
+    "shares": 3
+  },
+  "secret": "736563726574",
+  "shares": [
+    {
+      "index": 1,
+      "value": "a1b2c3d4"
+    },
+    {
+      "index": 2,
+      "value": "b5c6d7e8"
+    },
+    {
+      "index": 3,
+      "value": "c9d0e1f2"
+    }
+  ],
+  "notes": "All values are hex-encoded. This vector is deterministic and intended for cross-implementation validation."
+}
