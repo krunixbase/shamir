@@ -162,6 +162,7 @@ shamir/
 │   ├── encoding.py # Share serialization utilities
 │   └── exceptions.py # Explicit exception hierarchy├─ THREAT_MODEL.md │
 │
+├── CHANGELOG.md
 ├── THREAT_MODEL.md
 ├── PR_JUSTIFICATION.md
 ├── DESIGN_DECISIONS.md
