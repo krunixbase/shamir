@@ -144,9 +144,18 @@ shamir/
 │   ├── polynomial.go # Polynomial operations
 │   └── params.go   # Scheme parameters
 │
+├── docs/
+│   └── operational_flow.md
+│
 ├── math/           # Mathematical primitives
 │   ├── field.go    # Abstract field interface
 │   └── interpolate.go # Polynomial interpolation (Lagrange)
+│
+├── operations/    
+│   ├── context.py
+│   ├── lifecycle.py
+│   ├── errors.py
+│   └── verify.py
 │
 ├── verify/         # Defensive share verification (TOR A)
 │   ├── verify.go   # Verification orchestrator
@@ -166,7 +175,7 @@ shamir/
 │       ├── split_k2_n3.json
 │       ├── split_k3_n5.json
 │       └── encoding_v1.json
-││
+│
 ├── shamir/         # Python reference implementation
 │   ├── core.py     # Shamir Secret Sharing logic
 │   ├── encoding.py # Share serialization utilities
