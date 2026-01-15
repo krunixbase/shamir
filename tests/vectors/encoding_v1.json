@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "description": "Reference encoding format for Shamir share representation (v1)",
+  "encoding": {
+    "type": "binary",
+    "representation": "hex",
+    "byte_order": "big-endian"
+  },
+  "share_format": {
+    "index": {
+      "type": "integer",
+      "description": "1-based share index"
+    },
+    "value": {
+      "type": "bytes",
+      "description": "Raw share value before encoding"
+    }
+  },
+  "example": {
+    "share": {
+      "index": 1,
+      "value": "a1b2c3d4"
+    },
+    "encoded": "0104a1b2c3d4"
+  },
+  "notes": "This document defines the canonical encoding format for shares. It is intended for audit, interoperability, and forward compatibility. The format is immutable once released."
+}
