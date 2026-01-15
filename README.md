@@ -1,5 +1,24 @@
-shamir
-Reference-grade implementation of Shamir Secret Sharing with modular encoding and audit-ready structure.
+# shamir
+This repository provides a reference‑grade implementation of Shamir’s Secret Sharing scheme with an explicit operational lifecycle, deterministic error handling, and audit‑oriented procedural control.
+
+## Operational Model
+
+The implementation separates cryptographic logic from operational control.
+All secret sharing procedures are executed through an explicit lifecycle
+consisting of initialization, split, verification, and reconstruction stages.
+
+Operational behavior is deterministic, auditable, and free of hidden state.
+
+## Non‑Goals
+
+This project deliberately does not provide:
+- user interfaces or CLI tools
+- key storage or key management
+- logging, telemetry, or monitoring
+- network or transport mechanisms
+
+These concerns are intentionally left to integrating systems.
+
 
 ## 🧭 Overview
 This repository provides clean, dependency-free implementations of Shamir Secret Sharing (SSS) in both Python and Go, designed for correctness, clarity, and long-term maintainability.
@@ -198,3 +217,5 @@ This project is licensed under the MIT License. See LICENSE for details.
 See SECURITY.md, THREAT_MODEL.md and PR_JUSTIFICATION.md
 for design rationale and threat assumptions.
 
+## Documentation
+- Operational lifecycle: docs/operational_flow.md
