@@ -31,4 +31,8 @@ No marketing language or forward-looking guarantees are used.
 - Minimal, versioned share encoding.
 - Test suite covering split, combine, and encoding behavior.
 
-
+## v1.0.0-reference
+- Initial operational lifecycle release
+- Deterministic error handling
+- Procedural control layer
+- Audit-grade documentation
