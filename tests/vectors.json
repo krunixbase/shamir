@@ -1,0 +1,28 @@
+{
+  "description": "Reference vectors for Shamir share format interoperability",
+  "version": 1,
+  "vectors": [
+    {
+      "name": "basic_share_1_of_3",
+      "header": {
+        "threshold": 2,
+        "share_count": 3,
+        "share_index": 1,
+        "field_id": 1
+      },
+      "payload_hex": "0102030405",
+      "encoded_hex": "5348414d01020301010102030405a3f1c2d4"
+    },
+    {
+      "name": "basic_share_2_of_3",
+      "header": {
+        "threshold": 2,
+        "share_count": 3,
+        "share_index": 2,
+        "field_id": 1
+      },
+      "payload_hex": "0a0b0c0d0e",
+      "encoded_hex": "5348414d01020302010a0b0c0d0e5e9a7b11"
+    }
+  ]
+}
