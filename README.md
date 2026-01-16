@@ -1,4 +1,4 @@
-y# Shamir Secret Sharing
+# Shamir Secret Sharing
 
 This repository provides a **minimal, deterministic implementation of
 Shamir’s Secret Sharing scheme** over \(GF(256)\).
