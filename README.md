@@ -34,7 +34,7 @@ All data is read from standard input and written to standard output.
 
 Split a secret into `n` shares with threshold `k`.
 
-```bash
+bash
 shamir split -k <threshold> -n <shares> < secret.bin
 
 ---
