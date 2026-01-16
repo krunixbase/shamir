@@ -1,4 +1,4 @@
-# Shamir Secret Sharing
+y# Shamir Secret Sharing
 
 This repository provides a **minimal, deterministic implementation of
 Shamir’s Secret Sharing scheme** over \(GF(256)\).
@@ -6,6 +6,36 @@ Shamir’s Secret Sharing scheme** over \(GF(256)\).
 It focuses exclusively on the **cryptographic core**: splitting a secret
 into shares and reconstructing it from a threshold subset. No operational,
 procedural, or governance concerns are included.
+
+---
+
+## Command Line Interface
+
+This repository includes a minimal command-line interface that acts as a
+thin adapter over the Shamir core and share encoding layers.
+
+The CLI performs direct data transformations and does not introduce any
+operational logic, persistence, or policy enforcement.
+
+---
+
+### Overview
+
+The CLI provides two commands:
+
+- `split` — split a secret into threshold shares
+- `combine` — reconstruct a secret from shares
+
+All data is read from standard input and written to standard output.
+
+---
+
+### Split
+
+Split a secret into `n` shares with threshold `k`.
+
+```bash
+shamir split -k <threshold> -n <shares> < secret.bin
 
 ---
 
