@@ -1,222 +1,121 @@
-# shamir
-This repository provides a reference‑grade implementation of Shamir’s Secret Sharing scheme with an explicit operational lifecycle, deterministic error handling, and audit‑oriented procedural control.
+# Shamir
 
-## Operational Model
+Reference implementation of Shamir Secret Sharing with a
+versioned, auditable share serialization format.
 
-The implementation separates cryptographic logic from operational control.
-All secret sharing procedures are executed through an explicit lifecycle
-consisting of initialization, split, verification, and reconstruction stages.
-The operational lifecycle constitutes a formal procedural contract and is documented in docs/operational_flow.md.
+This project focuses on correctness, explicitness, and long-term
+maintainability rather than feature completeness.
 
-Operational behavior is deterministic, auditable, and free of hidden state.
+---
 
-## Non‑Goals
+## Overview
 
-This project deliberately does not provide:
-- user interfaces or CLI tools
-- key storage or key management
-- logging, telemetry, or monitoring
-- network or transport mechanisms
+The repository provides:
 
-These concerns are intentionally left to integrating systems.
+- a clean implementation of Shamir Secret Sharing
+- a self-describing binary format for serialized shares
+- deterministic integrity mechanisms
+- cross-language interoperability (Python and Go)
+- formal documentation of assumptions and non-goals
 
+The cryptographic core is intentionally separated from
+representation, storage, and transport concerns.
 
-## 🧭 Overview
-This repository provides clean, dependency-free implementations of Shamir Secret Sharing (SSS) in both Python and Go, designed for correctness, clarity, and long-term maintainability.
+---
 
-The project focuses on:
+## Design Principles
 
-✅ Explicit mathematical correctness
+- explicit over implicit
+- validation before use
+- minimal surface area
+- no hidden state
+- no security theater
 
-✅ Clear separation of responsibilities
+Every component has a single, well-defined responsibility.
 
-✅ Deterministic behavior suitable for audits and integrations
+---
 
-## 🚀 Features
-## Python
-Pure Python implementation of Shamir Secret Sharing
+## Components
 
-Configurable threshold and share count
+### Cryptographic Core
 
-URL-safe Base64 encoding for share transport
+Pure implementation of the Shamir Secret Sharing algorithm.
 
-Explicit exception hierarchy for safe integration
+- no I/O
+- no serialization
+- no integrity logic
+- deterministic behavior
 
-Deterministic and auditable unit tests
+### Share Format
 
-## Go
-Modular share verification with audit-grade reporting
+A versioned binary format for individual shares.
 
-Deterministic error codes and structured context
+- self-describing header
+- explicit reconstruction parameters
+- mandatory CRC32 integrity check
+- optional HMAC-SHA256 for tamper detection
 
-CLI integration with human-readable and JSON output
+See: `docs/share-format.md`
 
-No reconstruction logic — pure defensiveness
+### Integrity Primitives
 
-Integration-ready for CI and automated pipelines
+Lightweight helpers for detecting corruption and manipulation.
 
-## 🧠 Design Principles
-Separation of concerns  
-Cryptographic logic is isolated from encoding, I/O, and validation layers.
+- CRC32 (mandatory)
+- HMAC-SHA256 (optional)
 
-Explicit failure semantics  
-All error conditions are represented by structured exceptions or error objects.
+### CLI
 
-Audit-first structure  
-Code is written to be readable, reviewable, and defensible — suitable for compliance and forensic use.
+Minimal command-line interface for splitting and reconstructing secrets.
 
+- explicit inputs and outputs
+- no interactive prompts
+- no implicit defaults
 
-## Python Usage Example
-python
-from shamir.core import split_secret, reconstruct_secret
-from shamir.encoding import encode_shares, decode_shares
+---
 
-secret = 123456789
-shares = split_secret(secret, threshold=3, shares_count=5)
+## Interoperability
 
-encoded = encode_shares(shares)
-decoded = decode_shares(encoded)
+The share format is implemented in:
 
-recovered = reconstruct_secret(decoded[:3])
-assert recovered == secret
+- Python (reference implementation)
+- Go (independent parser and encoder)
 
-## Go Module: Audit-Grade Share Verification (TOR A)
-This repository also includes a reference-grade Go module for deterministic share verification, designed to audit Shamir Secret Sharing inputs before reconstruction.
+Deterministic test vectors ensure compatibility across languages.
 
-Go API
-go
-report := verify.VerifyShares(shares, threshold)
-Always returns a VerificationReport
+---
 
-Never panics, never reconstructs
+## Security Model
 
-Can be serialized to JSON for CI integration
+This project does not provide confidentiality for individual shares.
 
-CLI
-bash
-shamir verify shares.json --threshold 3
-shamir verify shares.json --threshold 3 --json
-Exit code 0 → valid and threshold satisfied
+Security relies on:
 
-Exit code 1 → any critical error
+- the mathematical properties of Shamir Secret Sharing
+- operational separation of shares
+- correct selection of threshold parameters
 
-## Dual Implementation Philosophy: Python & Go
-This repository intentionally contains two parallel implementations of Shamir Secret Sharing, each serving a distinct purpose:
+See: `docs/threat-model.md`
 
-### Python — Protocol Reference
-The Python module (shamir/) provides a full implementation of the Shamir Secret Sharing protocol:
+---
 
-- Splitting and reconstructing secrets
-
-- Encoding and decoding shares
-
-- Exception-safe API for integration
-
-- Designed for clarity, correctness, and educational use
-
-Python defines how the protocol works.
-
-### Go — Defensive Verification (TOR A)
-The Go modules (core/, math/, verify/, cli/) focus on verifying externally supplied shares:
+## Non-Goals
 
-- Modular validation of share structure and consistency
-
-- Deterministic error reporting with stable codes
-
-- Audit-grade VerificationReport for CI and forensic use
-
-- CLI with human-readable and JSON output modes
-
-Go defines how to defend against invalid or malicious input.
-
-### Why Both?
-Python expresses the cryptographic protocol clearly.
-
-Go enforces structural discipline and auditability.
-
-- Both follow the same principles:
-
-- separation of concerns,
-
-- deterministic behavior,
-
-- explicit failure semantics.
-
-Together, they form a system that is:
-
-- understandable,
-
-- verifiable,
-
-- and resistant to misuse.
-
-
-## Project Structure
-
-```
-
-shamir/
-├── cli/            # Command-line interface adapters
-│   ├── verify.go   # Verify command entry point
-│   
-├── core/           # Core Shamir Secret Sharing logic
-│   ├── share.go    # Share structure definition
-│   ├── polynomial.go # Polynomial operations
-│   └── params.go   # Scheme parameters
-│
-├── docs/
-│   └── operational_flow.md
-│
-├── math/           # Mathematical primitives
-│   ├── field.go    # Abstract field interface
-│   └── interpolate.go # Polynomial interpolation (Lagrange)
-│
-├── operations/    
-│   ├── context.py
-│   ├── lifecycle.py
-│   ├── errors.py
-│   └── verify.py
-│
-├── verify/         # Defensive share verification (TOR A)
-│   ├── verify.go   # Verification orchestrator
-│   ├── checks.go   # Modular validation checks
-│   ├── report.go   # VerificationReport definition
-│   └── errors.go   # Structured verification errors
-│
-├── tests/             # Integration tests
-│   ├── test_shamir.py
-│   ├── verify_test.go # VerifyShares integration tests
-│   ├── test_split.py
-│   ├── test_combine.py
-│   ├── test_encoding.py
-│   ├── test_cli.py        # CLI happy-path + error cases
-│   └── vectors/
-│       ├── README.md
-│       ├── split_k2_n3.json
-│       ├── split_k3_n5.json
-│       └── encoding_v1.json
-│
-├── shamir/         # Python reference implementation
-│   ├── core.py     # Shamir Secret Sharing logic
-│   ├── encoding.py # Share serialization utilities
-│   └── exceptions.py # Explicit exception hierarchy├─ THREAT_MODEL.md │
-│
-├── CHANGELOG.md
-├── THREAT_MODEL.md
-├── PR_JUSTIFICATION.md
-├── DESIGN_DECISIONS.md
-├── README.md       # Project documentation
-├── LICENSE         # MIT license
-├── SECURITY.md     # Security policy
-└── .gitignore      # Git ignore rules
-
-```
-## License
-This project is licensed under the MIT License. See LICENSE for details.
-
-## Audit & Security
-See SECURITY.md, THREAT_MODEL.md and PR_JUSTIFICATION.md
-for design rationale and threat assumptions.
-
-## Documentation
-- Operational lifecycle: docs/operational_flow.md
+This project intentionally does not:
+
+- encrypt share payloads
+- manage keys or secrets
+- provide secure storage or transport
+- implement access control
+- hide reconstruction parameters
+
+These concerns must be handled by the surrounding system.
+
+---
+
+## Status
+
+The implementation is complete and stable.
+
+The format, tests, and documentation are intended to remain
+backward-compatible and auditable over time.
