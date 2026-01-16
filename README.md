@@ -1,121 +1,84 @@
-# Shamir
+# Shamir Secret Sharing
 
-Reference implementation of Shamir Secret Sharing with a
-versioned, auditable share serialization format.
+This repository provides a **minimal, deterministic implementation of
+Shamir’s Secret Sharing scheme** over \(GF(256)\).
 
-This project focuses on correctness, explicitness, and long-term
-maintainability rather than feature completeness.
-
----
-
-## Overview
-
-The repository provides:
-
-- a clean implementation of Shamir Secret Sharing
-- a self-describing binary format for serialized shares
-- deterministic integrity mechanisms
-- cross-language interoperability (Python and Go)
-- formal documentation of assumptions and non-goals
-
-The cryptographic core is intentionally separated from
-representation, storage, and transport concerns.
+It focuses exclusively on the **cryptographic core**: splitting a secret
+into shares and reconstructing it from a threshold subset. No operational,
+procedural, or governance concerns are included.
 
 ---
 
-## Design Principles
+## Purpose
 
-- explicit over implicit
-- validation before use
-- minimal surface area
-- no hidden state
-- no security theater
+The purpose of this project is to:
 
-Every component has a single, well-defined responsibility.
+- implement Shamir Secret Sharing correctly and transparently
+- provide a small, auditable cryptographic primitive
+- support deterministic testing and reproducibility
+- serve as a building block for higher-level systems
 
----
-
-## Components
-
-### Cryptographic Core
-
-Pure implementation of the Shamir Secret Sharing algorithm.
-
-- no I/O
-- no serialization
-- no integrity logic
-- deterministic behavior
-
-### Share Format
-
-A versioned binary format for individual shares.
-
-- self-describing header
-- explicit reconstruction parameters
-- mandatory CRC32 integrity check
-- optional HMAC-SHA256 for tamper detection
-
-See: `docs/share-format.md`
-
-### Integrity Primitives
-
-Lightweight helpers for detecting corruption and manipulation.
-
-- CRC32 (mandatory)
-- HMAC-SHA256 (optional)
-
-### CLI
-
-Minimal command-line interface for splitting and reconstructing secrets.
-
-- explicit inputs and outputs
-- no interactive prompts
-- no implicit defaults
+This repository is **implementation-focused**, not a complete key
+management solution.
 
 ---
 
-## Interoperability
+## Scope
 
-The share format is implemented in:
+This project includes:
 
-- Python (reference implementation)
-- Go (independent parser and encoder)
+- arithmetic over \(GF(256)\)
+- polynomial-based secret splitting
+- Lagrange interpolation for reconstruction
+- deterministic unit tests
 
-Deterministic test vectors ensure compatibility across languages.
-
----
-
-## Security Model
-
-This project does not provide confidentiality for individual shares.
-
-Security relies on:
-
-- the mathematical properties of Shamir Secret Sharing
-- operational separation of shares
-- correct selection of threshold parameters
-
-See: `docs/threat-model.md`
+It intentionally avoids all non-essential concerns.
 
 ---
 
 ## Non-Goals
 
-This project intentionally does not:
+This project does **not**:
 
-- encrypt share payloads
-- manage keys or secrets
-- provide secure storage or transport
-- implement access control
-- hide reconstruction parameters
+- define operational procedures or lifecycle management
+- handle custody, rotation, or revocation
+- provide serialization or storage formats
+- include CLI tools or services
+- manage access control or authorization
+- replace KMS, HSM, or secret management platforms
 
-These concerns must be handled by the surrounding system.
+Operational governance is explicitly out of scope.
+
+---
+
+## Design Principles
+
+This implementation prioritizes:
+
+- correctness over convenience
+- explicit behavior over implicit assumptions
+- deterministic testing
+- minimal surface area
+- separation of cryptography from operations
+
+---
+
+## Relationship to Operational Layer
+
+This repository is designed to be used alongside, but independent from,
+the **Operational Layer for Threshold Secrets** specification:
+
+https://github.com/krunixbase/operational-layer-for-threshold-secrets
+
+That project defines governance, accountability, and lifecycle procedures.
+This repository provides only the cryptographic primitive.
 
 ---
 
 ## Status
 
-The implementation is complete and stable.
+This repository implements the **core Shamir algorithm**.
 
-The format, tests, and documentation are intended to remain
-backward-compatible and auditable over time.
+The API and behavior are expected to remain stable, with future changes
+being additive and deliberate.
+
