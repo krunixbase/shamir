@@ -107,8 +107,10 @@ This repository provides only the cryptographic primitive.
 
 ## Status
 
-This repository implements the **core Shamir algorithm**.
+This repository is sealed as a reference-grade implementation of
+Shamir Secret Sharing.
 
-The API and behavior are expected to remain stable, with future changes
-being additive and deliberate.
+As of v1.0.0, the public API, failure semantics, and cryptographic behavior
+are contractually defined and stable. Future changes are expected to be
+infrequent and deliberate, following the documented versioning policy.
 
